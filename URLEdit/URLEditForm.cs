@@ -22,7 +22,7 @@ namespace URLEdit
         public URLEditForm()
         {
             InitializeComponent();
-            parameters.Add(new Parameter("TestParam", "TestValue"));
+            parameters.Add(new Parameter("", ""));
             var bindlingList = new BindingList<Parameter>(parameters);
             var source = new BindingSource(bindlingList,null);
             dgvParameters.DataSource = source;
@@ -30,7 +30,6 @@ namespace URLEdit
 
         private void InURLTextChanged(object sender, EventArgs e)
         {
-
             string querystring = string.Empty;
             string currurl = tbInURL.Text;
 
@@ -42,14 +41,13 @@ namespace URLEdit
                 tbOutURL.Text = currurl;
                 return; // do nothing
             }
-            // If query string variables exist, put them in a string.
             else if (iqs >= 0)
             {
                 querystring = (iqs < currurl.Length - 1) ? currurl.Substring(iqs + 1) : String.Empty;
                 StartOfURL = currurl.Substring(0, iqs);
+                tbBaseUrl.Text = StartOfURL;
             }
 
-            // Parse the query string variables into a NameValueCollection.
             var parameterList = querystring.Split('&');
 
             parameters.Clear();
@@ -64,16 +62,11 @@ namespace URLEdit
             var bindlingList = new BindingList<Parameter>(parameters);
             var source = new BindingSource(bindlingList, null);
             dgvParameters.DataSource = source;
-
-            
-
             tbOutURL.Text = CreateRevisedURL();
-
         }
 
         private string CreateRevisedURL()
         {
-            // Iterate through the collection and build new query string+
             StringBuilder sb = new StringBuilder();
             foreach (var s in parameters)
             {
@@ -84,9 +77,14 @@ namespace URLEdit
             return updatedUrl;
         }
 
+        private void tbBaseUrl_TextChanged(object sender, EventArgs e)
+        {
+            StartOfURL = tbBaseUrl.Text;
+            tbOutURL.Text = CreateRevisedURL();
+        }
+
         private void dgvParameters_CellEndEdit(object sender, DataGridViewCellEventArgs e)
         {
-
             tbOutURL.Text = CreateRevisedURL();
         }
 

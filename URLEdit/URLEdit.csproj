@@ -6,9 +6,9 @@
     <Nullable>enable</Nullable>
     <UseWindowsForms>true</UseWindowsForms>
 	  <PublishSingleFile>true</PublishSingleFile>
-	  <SelfContained>true</SelfContained>
-	  <IncludeAllContentForSelfExtract>true</IncludeAllContentForSelfExtract>
-	  <RuntimeIdentifier>win-x64</RuntimeIdentifier> 	
+	<!--<SelfContained>true</SelfContained>
+	<IncludeAllContentForSelfExtract>true</IncludeAllContentForSelfExtract>
+	<RuntimeIdentifier>win-x64</RuntimeIdentifier>--> 	
   </PropertyGroup>
 
 </Project>
